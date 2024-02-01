@@ -1,0 +1,285 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Mario Example with Map and Traps</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    #game-container {
+      position: relative;
+      width: 800px;
+      height: 400px;
+      margin: auto;
+      background-color: #87CEEB; /* Sky blue background */
+      overflow: hidden;
+    }
+
+    .platform {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 50px;
+      background-color: #8B4513; /* Brown platform color */
+    }
+
+    .trap {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: #000; /* Black trap color */
+    }
+
+    #mario {
+      position: absolute;
+      bottom: 50px;
+      left: 50px;
+      width: 50px;
+      height: 50px;
+      background-color: red;
+    }
+  </style>
+</head>
+<body>
+
+<div id="game-container">
+  <div class="platform"></div>
+  <div class="trap" style="bottom: 50px; left: 300px;"></div>
+  <div class="trap" style="bottom: 50px; left: 500px;"></div>
+  <div id="mario"></div>
+</div>
+
+<script>
+  const mario = document.getElementById('mario');
+  let marioX = 50;
+  let marioY = 50;
+  let isJumping = false;
+
+  function updateMarioPosition() {
+    mario.style.left = marioX + 'px';
+    mario.style.bottom = marioY + 'px';
+  }
+
+  function jump() {
+    if (!isJumping) {
+      isJumping = true;
+      performJump();
+    }
+  }
+
+  function performJump() {
+    const jumpHeight = 100;
+    const jumpDuration = 500;
+    const startTime = Date.now();
+
+    function jumpAnimation() {
+      const elapsedTime = Date.now() - startTime;
+
+      if (elapsedTime < jumpDuration) {
+        const progress = elapsedTime / jumpDuration;
+        marioY = 50 + jumpHeight * Math.sin(progress * Math.PI);
+        updateMarioPosition();
+        requestAnimationFrame(jumpAnimation);
+      } else {
+        marioY = 50;
+        isJumping = false;
+        updateMarioPosition();
+      }
+    }
+
+    jumpAnimation();
+  }
+
+  document.addEventListener('keyup', function (event) {
+    if (event.key === ' ') {
+      jump();
+    }
+  });
+
+  function checkCollision() {
+    const traps = document.querySelectorAll('.trap');
+
+    traps.forEach(trap => {
+      const trapRect = trap.getBoundingClientRect();
+      const marioRect = mario.getBoundingClientRect();
+
+      if (
+        marioRect.bottom > trapRect.top &&
+        marioRect.top < trapRect.bottom &&
+        marioRect.right > trapRect.left &&
+        marioRect.left < trapRect.right
+      ) {
+        // Collision with trap
+        alert('Oops! You hit a trap.');
+        // You can add more actions here, like resetting the game.
+      }
+    });
+  }
+
+  setInterval(checkCollision, 50);
+
+  updateMarioPosition(); // Initial position
+
+</script>
+
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
+
+    h1, h2 {
+      text-align: center;
+      font-family: 'Black Ops One', system-ui;
+      margin-top: 50px;
+      color: #d3b522;
+      font-size: 2em; 
+    }
+
+    body {
+      background-image: url(jungle.webp);
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    #game-board {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      margin: 0;
+    }
+
+    #game-board {
+      display: grid;
+      grid-template-columns: repeat(5, 100px);
+      gap: 50px;
+    }
+
+    .card {
+      width: 175px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      background-color: #cbab07;
+      border-radius: 39px;
+      background: linear-gradient(145deg, #cbab07, #f2cb09);
+      box-shadow: 11px 11px 16px #836e05,
+                  -11px -11px 16px #ffff0b;
+    }
+
+    .card img {
+      max-width: 100%;
+      max-height: 10000%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .card.flipped img {
+      display: block; 
+    }
+  </style>
+  <title>Memory Game</title>
+</head>
+<body>
+  <h1>WAKE UP !!!</h1>
+  <h2>TIME FOR SOME MEMORY GAME</h2>
+  <div id="game-board"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const images = [
+        'https://th.bing.com/th?id=OIP.V4wA_t2z1VXgqiuTegP7CgHaEK&w=333&h=187&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+        'https://th.bing.com/th?id=OIP.x9n7WV7upsi8v9Cslr0QAAHaFj&w=288&h=216&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+        'https://th.bing.com/th?id=OIP.W04C-I_MO5eUv7PTOx-mhQHaE8&w=306&h=204&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+        'https://th.bing.com/th?id=OIP.wb1IlRjWpZVx9NG4cmQd_wHaFj&w=288&h=216&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+        'https://www.bing.com/th?id=OIP.ImmxXx64Z3pXz5QxDAzxzwHaE7&w=139&h=100&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+        'https://th.bing.com/th?id=OIP.V4wA_t2z1VXgqiuTegP7CgHaEK&w=333&h=187&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+        'https://th.bing.com/th?id=OIP.x9n7WV7upsi8v9Cslr0QAAHaFj&w=288&h=216&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+        'https://th.bing.com/th?id=OIP.W04C-I_MO5eUv7PTOx-mhQHaE8&w=306&h=204&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+        'https://th.bing.com/th?id=OIP.wb1IlRjWpZVx9NG4cmQd_wHaFj&w=288&h=216&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+        'https://www.bing.com/th?id=OIP.ImmxXx64Z3pXz5QxDAzxzwHaE7&w=139&h=100&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2',
+      ];
+
+      let shuffledImages = shuffleArray(images);
+      let flippedCards = [];
+      let matchedCards = [];
+
+      const gameBoard = document.getElementById('game-board');
+
+      shuffledImages.forEach((image, index) => {
+        const cardElement = document.createElement('div');
+        cardElement.classList.add('card');
+        cardElement.dataset.index = index;
+        cardElement.addEventListener('click', flipCard);
+
+        const imgElement = document.createElement('img');
+        imgElement.src = image;
+        cardElement.appendChild(imgElement);
+
+        gameBoard.appendChild(cardElement);
+      });
+
+      function flipCard() {
+        const selectedCard = this;
+        if (flippedCards.length < 2 && !flippedCards.includes(selectedCard)) {
+          flippedCards.push(selectedCard);
+          selectedCard.classList.add('flipped');
+
+          if (flippedCards.length === 2) {
+            setTimeout(checkMatch, 500);
+          }
+        }
+      }
+
+      function checkMatch() {
+        const [card1, card2] = flippedCards;
+        const img1 = card1.querySelector('img').src;
+        const img2 = card2.querySelector('img').src;
+
+        if (img1 === img2) {
+          matchedCards.push(card1, card2);
+          if (matchedCards.length === shuffledImages.length) {
+            alert('CONGRATULATIONS! YOU WOOON. Refresh to try again');
+          }
+        } else {
+          flippedCards.forEach(card => {
+            card.classList.remove('flipped');
+          });
+        }
+
+        flippedCards = [];
+      }
+
+      function shuffleArray(array) {
+        const shuffledArray = array.slice();
+        for (let i = shuffledArray.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
+        }
+        return shuffledArray;
+      }
+    });
+  </script>
+</body>
+</html>
+
+
+
+
